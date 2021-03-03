@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" />
+    <style>
+       .container{
+       width:4000;
+       }
+       #chart{
+        float: center;
+        }
+         h3{
+        display: inline;
+        margin: 10px;
+        margin-bottom: 10px;
+        margin-top: 5px;
+        }
+         #logout{
+        text-align: right;
+        top: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h3><a th:href="@{/home}">Home</a></h3>
+    <h3><a th:href="@{/clients}">Clients</a></h3>
+    <h3><a th:href="@{/mySales}">Sales</a></h3>
+
+    <div id="logout"> <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out" />
+    </form>
+    </div>
+
+    <h2 align="center">Analysis</h2>
+
+    <div id="chart"
+         style="width: 600px; height: 400px" ></div>
+
+<script
+        src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script th:inline="javascript">
+    $(function(){
+    Highcharts.chart('chart', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Profit - last six months'
+        },
+        xAxis: {
+            categories: [[${surveyMap.keySet()}]],
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            max:30000,
+            title: {
+                text: 'Profit [$]'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y:.1f} $</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: [{
+            name: 'Month',
+            data: [[${surveyMap.values()}]]
+        }]
+    });
+    });
+</script>
+
+</div>
+</body>
+</html>

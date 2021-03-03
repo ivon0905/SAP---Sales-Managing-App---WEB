@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home page</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    <style>
+    div.container{
+    text-align: center;
+    top: 50%;
+    }
+        body {
+  background-image: url('/images/index.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  }
+  .container {
+              background-color: rgba(255,255,255,0.5);
+              background-position: center center;
+              position: relative;
+              height: 400px;
+              width: 530px;
+  }
+
+    </style>
+</head>
+<body>
+ <div class="container">
+     <h1 style="color:orange">Everything for Your Business</h1>
+     <h1> </h1>
+     <h2 style="color:green;font-size:18px">Track your sales, enroll new customers and get analyzes</h2>
+     <h3><a th:href="@{/login}">Login</a></h3>
+     <h2 style="color:green;font-size:18px">You do not have an account yet?
+         Make the first step!
+         Register now here and wait for approval</h2>
+     <h3><a th:href="@{/register}">Register</a></h3>
+ </div>
+</body>
+</html>

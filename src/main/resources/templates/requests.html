@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Requests</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container text-center">
+    <div>
+        <form th:action="@{/logout}" method="post">
+            <p>
+
+            </p>
+            <input type="submit" value="Sign Out" />
+        </form>
+    </div>
+    <div>
+        <h1>Requests</h1>
+        <a href="managers">Return to Sales Representatives</a>
+    </div>
+
+    <div>
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Phone number</th>
+                <th>Brand</th>
+                <th>Approve</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="userRequest: ${listRequests}">
+                <td th:text="${userRequest.id}">ID</td>
+                <td th:text="${userRequest.name}">Name</td>
+                <td th:text="${userRequest.lastName}">Last Name</td>
+                <td th:text="${userRequest.mail}">Email</td>
+                <td th:text="${userRequest.phone}">Phone number</td>
+                <td th:text="${userRequest.brand}">Brand</td>
+                <td> <a th:href="@{'/addManager/' + ${userRequest.id}}">Approve</a> </td>
+                <td> <a th:href="@{'/deleteRequest/' + ${userRequest.id}}">Delete</a> </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

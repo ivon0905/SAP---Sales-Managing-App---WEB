@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Sold products</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container text-center">
+    <div>
+        <form  th:action="@{/logout}" method="post">
+
+            <input type="submit" value="Sign Out" />
+        </form>
+        <h4><a style="text-align:right" th:href="@{/homeAdmin}">Home</a></h4>
+        <h3><a style="text-align:left" th:href="@{/managers}">Sales Representatives</a></h3>
+        <h4><a style="text-align:right" th:href="@{/products}">Products</a></h4>
+    </div>
+    <div>
+        <h1>Sold products</h1>
+        <a href="analysis">View analysis</a>
+    </div>
+
+    <div>
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th>№ of sale</th>
+                <th>ID of product</th>
+                <th>Brand</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Final Price</th>
+                <th>Date</th>
+<!--                <th>Edit</th>-->
+<!--                <th>Delete</th>-->
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="soldProduct: ${listSoldProducts}">
+                <td th:text="${soldProduct.id}">№ of sale</td>
+                <td th:text="${soldProduct.idOfProduct}">ID of product</td>
+                <td th:text="${soldProduct.brand}">Brand</td>
+                <td th:text="${soldProduct.quantity}">Quantity</td>
+                <td th:text="${soldProduct.price}">Price</td>
+                <td th:text="${soldProduct.finalPrice}">Final Price</td>
+                <td th:text="${soldProduct.date}">Date</td>
+<!--                <td><a th:href="@{'/edit/' + ${soldProduct.id}}">Edit</a></td>-->
+<!--                <td> <a th:href="@{'/deleteProduct/' + ${soldProduct.id}}">Delete</a> </td>-->
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

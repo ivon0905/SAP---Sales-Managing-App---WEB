@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1" />
+    <title>Analysis</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" />
+
+    <style>
+        .graphs{
+        width:3000;
+        }
+        #container{
+        float:left;
+        }
+        #container1{
+        float: right;
+        }
+        #brand1{
+        float: left;
+        }
+        #brand2{
+        float: right;
+        }
+        #brand3{
+        float: left;
+        }
+        #brand4{
+        float: right;
+        }
+        h3{
+        display: inline;
+        margin: 10px;
+        margin-bottom: 10px;
+        margin-top: 5px;
+        }
+        #logout{
+        text-align: right;
+        top: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="graphs">
+    <h3 ><a th:href="@{/homeAdmin}">Home</a></h3>
+    <h3 ><a th:href="@{/products}">Products</a></h3>
+    <h3 ><a th:href="@{/sales}">Sales</a></h3>
+    <h3 ><a th:href="@{/managers}">Sales Representatives</a></h3>
+
+  <div id="logout"> <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out" />
+    </form>
+  </div>
+
+    <h2 align="center">Analysis</h2>
+
+    <div id="container"
+         style="width: 600px; height: 400px" ></div>
+<script
+        src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script th:inline="javascript">
+    $(function(){
+    Highcharts.chart('container', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Profit - All Brands'
+        },
+        xAxis: {
+            categories: [[${surveyMap.keySet()}]],
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            max:30000,
+            title: {
+                text: 'Profit [$]'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y:.1f} $</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: [{
+            name: 'Month',
+            data: [[${surveyMap.values()}]]
+        }]
+    });
+    });
+</script>
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-3d.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+<div id="container1" style="height: 400px" ></div>
+<script th:inline="javascript">
+		Highcharts.chart('container1', {
+             chart : {
+             type : 'pie',
+             options3d : {
+             enabled : true,
+             alpha : 50,
+             beta : 0
+        }
+        },
+             title : {
+             text : 'Profit by brands'
+        },
+             tooltip : {
+             pointFormat : '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+             plotOptions : {
+             pie : {
+             allowPointSelect : true,
+             cursor : 'pointer',
+             depth : 35,
+             dataLabels : {
+             enabled : true,
+             format : '{point.name}'
+        }
+        }
+        },
+             series : [ {
+             type : 'pie',
+             name : 'Percent',
+             data :  [ [ 'Chanel', [[${Chanel}]] ], [ 'Dior', [[${Dior}]] ],
+              [ 'Ray Ban', [[${RayBan}]] ], [ 'Gucci', [[${Gucci}]] ] ]
+        } ]
+});
+    </script>
+
+    <div id="brand1"
+         style="width: 600px; height: 400px" ></div>
+    <script th:inline="javascript">
+    $(function(){
+    Highcharts.chart('brand1', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Profit - Chanel'
+        },
+        xAxis: {
+            categories: [[${surveyMap1.keySet()}]],
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            max:30000,
+            title: {
+                text: 'Profit [$]'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y:.1f} $</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0,
+
+            }
+        },
+        series: [{
+            name: 'Month',
+            data: [[${surveyMap1.values()}]]
+        }]
+    });
+    });
+</script>
+
+    <div id="brand2"
+         style="width: 600px; height: 400px" ></div>
+    <script th:inline="javascript">
+    $(function(){
+    Highcharts.chart('brand2', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Profit - Dior'
+        },
+        xAxis: {
+            categories: [[${surveyMap2.keySet()}]],
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            max:30000,
+            title: {
+                text: 'Profit [$]'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y:.1f} $</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: [{
+            name: 'Month',
+            data: [[${surveyMap2.values()}]]
+        }]
+    });
+    });
+</script>
+
+    <div id="brand3"
+         style="width: 600px; height: 400px" ></div>
+    <script th:inline="javascript">
+    $(function(){
+    Highcharts.chart('brand3', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Profit - Ray Ban'
+        },
+        xAxis: {
+            categories: [[${surveyMap3.keySet()}]],
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            max:30000,
+            title: {
+                text: 'Profit [$]'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y:.1f} $</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: [{
+            name: 'Month',
+            data: [[${surveyMap3.values()}]]
+        }]
+    });
+    });
+</script>
+
+    <div id="brand4"
+         style="width: 600px; height: 400px" ></div>
+    <script th:inline="javascript">
+    $(function(){
+    Highcharts.chart('brand4', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Profit - Gucci'
+        },
+        xAxis: {
+            categories: [[${surveyMap4.keySet()}]],
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            max:30000,
+            title: {
+                text: 'Profit [$]'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y:.1f} $</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: [{
+            name: 'Month',
+            data: [[${surveyMap4.values()}]]
+        }]
+    });
+    });
+</script>
+
+</div>
+</body>
+</html>

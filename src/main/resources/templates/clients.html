@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Clients</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container text-center">
+    <div>
+        <form th:action="@{/logout}" method="post">
+            <p>
+
+            </p>
+            <input type="submit" value="Sign Out" />
+        </form>
+<!--        <h3><a style="text-align:left" th:href="@{/products}">Products</a></h3>-->
+        <h3><a th:href="@{/home}">Home</a></h3>
+        <h3><a th:href="@{/mySales}">Sales</a></h3>
+        <h3><a th:href="@{/chart}">Analysis</a></h3>
+    </div>
+    <div>
+        <h1>List of Clients</h1>
+        <a href="addClient">Add client</a>
+    </div>
+
+    <div>
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th>Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Phone number</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="client: ${listClients}">
+                <td th:text="${client.name}">Name</td>
+                <td th:text="${client.lastName}">Last Name</td>
+                <td th:text="${client.email}">Email</td>
+                <td th:text="${client.phone}">Phone number</td>
+                <td> <a th:href="@{'/editClient/' + ${client.id}}">Edit</a> </td>
+                <td> <a th:href="@{'/deleteClient/' + ${client.id}}">Delete</a> </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
